@@ -20,4 +20,10 @@ public final class IndexElement<T>
 	{
 		return this.element;
 	}
+	
+	@Override
+	public String toString()
+	{
+		return "@" + index + " : " + element;
+	}
 }
