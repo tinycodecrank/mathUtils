@@ -4,6 +4,8 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.function.Supplier;
+import java.util.stream.Stream;
+import java.util.stream.StreamSupport;
 
 import de.tinycodecrank.math.utils.range.ArrayRange.ElementIndexArrayRange;
 import de.tinycodecrank.math.utils.range.ListRange.ElementIndexListRange;
@@ -57,6 +59,7 @@ public class Range implements Iterable<Integer>
 	}
 	
 	public final int							start, stop, step;
+	private final int							steps;
 	private final Supplier<Iterator<Integer>>	iteratorSupplier;
 	
 	private Range(int start, int stop, int step)
@@ -65,12 +68,51 @@ public class Range implements Iterable<Integer>
 		this.stop	= stop;
 		this.step	= step;
 		validate();
-		this.iteratorSupplier = assignIterator();
+		this.steps				= countSteps(start, stop, step);
+		this.iteratorSupplier	= assignIterator();
 	}
 	
 	public Range reverse()
 	{
 		return new Range(this.stop - this.step, this.start - this.step, -this.step);
+	}
+	
+	/**
+	 * @return The amount of steps this range requires to traverse or -1 if it takes
+	 *         an infinite amount of steps.
+	 */
+	public int steps()
+	{
+		return steps;
+	}
+	
+	private static int countSteps(int start, int stop, int step)
+	{
+		if (step == 0)
+		{
+			return -1;
+		}
+		else if (start == stop)
+		{
+			return 0;
+		}
+		else
+		{
+			final int adjustor;
+			if (step > 1)
+			{
+				adjustor = step - 1;
+			}
+			else if (step < -1)
+			{
+				adjustor = step + 1;
+			}
+			else
+			{
+				adjustor = 0;
+			}
+			return (stop - start + adjustor) / step;
+		}
 	}
 	
 	private void validate()
@@ -180,5 +222,10 @@ public class Range implements Iterable<Integer>
 	public Iterator<Integer> iterator()
 	{
 		return this.iteratorSupplier.get();
+	}
+	
+	public Stream<Integer> stream()
+	{
+		return StreamSupport.stream(spliterator(), false);
 	}
 }

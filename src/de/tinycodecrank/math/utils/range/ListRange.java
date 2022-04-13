@@ -2,6 +2,8 @@ package de.tinycodecrank.math.utils.range;
 
 import java.util.Iterator;
 import java.util.List;
+import java.util.stream.Stream;
+import java.util.stream.StreamSupport;
 
 public final class ListRange
 {
@@ -55,6 +57,20 @@ public final class ListRange
 		{
 			return new IndexListRange<>(list, range.reverse());
 		}
+		
+		public Stream<Integer> stream()
+		{
+			return StreamSupport.stream(spliterator(), false);
+		}
+		
+		/**
+		 * @return The amount of steps this range requires to traverse or -1 if it takes
+		 *         an infinite amount of steps.
+		 */
+		public int steps()
+		{
+			return this.range.steps();
+		}
 	}
 	
 	public static final class ElementListRange<T> implements IListRange<T, ElementListRange<T>>
@@ -103,6 +119,20 @@ public final class ListRange
 		public ElementListRange<T> reverse()
 		{
 			return new ElementListRange<>(list, range.reverse());
+		}
+		
+		public Stream<T> stream()
+		{
+			return StreamSupport.stream(spliterator(), false);
+		}
+		
+		/**
+		 * @return The amount of steps this range requires to traverse or -1 if it takes
+		 *         an infinite amount of steps.
+		 */
+		public int steps()
+		{
+			return this.range.steps();
 		}
 	}
 	
@@ -153,6 +183,20 @@ public final class ListRange
 		public ElementIndexListRange<T> reverse()
 		{
 			return new ElementIndexListRange<>(list, range.reverse());
+		}
+		
+		public Stream<IndexElement<T>> stream()
+		{
+			return StreamSupport.stream(spliterator(), false);
+		}
+		
+		/**
+		 * @return The amount of steps this range requires to traverse or -1 if it takes
+		 *         an infinite amount of steps.
+		 */
+		public int steps()
+		{
+			return this.range.steps();
 		}
 	}
 }
