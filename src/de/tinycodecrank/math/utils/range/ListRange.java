@@ -20,12 +20,7 @@ public final class ListRange
 		return new ElementIndexListRange<>(list, Range.rRange(0, list.size()));
 	}
 	
-	private static interface IListRange<T, E extends IListRange<T, E>> extends Iterable<T>
-	{
-		public E reverse();
-	}
-	
-	public static final class IndexListRange<T> implements IListRange<Integer, IndexListRange<T>>
+	public static final class IndexListRange<T> implements IRange<Integer, IndexListRange<T>>
 	{
 		private final List<T>	list;
 		private final Range		range;
@@ -73,7 +68,7 @@ public final class ListRange
 		}
 	}
 	
-	public static final class ElementListRange<T> implements IListRange<T, ElementListRange<T>>
+	public static final class ElementListRange<T> implements IRange<T, ElementListRange<T>>
 	{
 		private final List<T>	list;
 		private final Range		range;
@@ -136,7 +131,7 @@ public final class ListRange
 		}
 	}
 	
-	public static final class ElementIndexListRange<T> implements IListRange<IndexElement<T>, ElementIndexListRange<T>>
+	public static final class ElementIndexListRange<T> implements IRange<IndexElement<T>, ElementIndexListRange<T>>
 	{
 		private final List<T>	list;
 		private final Range		range;

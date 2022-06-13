@@ -19,12 +19,7 @@ public final class ArrayRange
 		return new ElementIndexArrayRange<>(array, Range.rRange(0, array.length));
 	}
 	
-	private static interface IArrayRange<T, E extends IArrayRange<T, E>> extends Iterable<T>
-	{
-		public E reverse();
-	}
-	
-	public static final class IndexArrayRange<T> implements IArrayRange<Integer, IndexArrayRange<T>>
+	public static final class IndexArrayRange<T> implements IRange<Integer, IndexArrayRange<T>>
 	{
 		private final T[]	array;
 		private final Range	range;
@@ -72,7 +67,7 @@ public final class ArrayRange
 		}
 	}
 	
-	public static final class ElementArrayRange<T> implements IArrayRange<T, ElementArrayRange<T>>
+	public static final class ElementArrayRange<T> implements IRange<T, ElementArrayRange<T>>
 	{
 		private final T[]	array;
 		private final Range	range;
@@ -135,7 +130,7 @@ public final class ArrayRange
 		}
 	}
 	
-	public static final class ElementIndexArrayRange<T> implements IArrayRange<IndexElement<T>, ElementIndexArrayRange<T>>
+	public static final class ElementIndexArrayRange<T> implements IRange<IndexElement<T>, ElementIndexArrayRange<T>>
 	{
 		private final T[]	array;
 		private final Range	range;
@@ -163,7 +158,7 @@ public final class ArrayRange
 				public IndexElement<T> next()
 				{
 					int index = iterator.next();
-					return new IndexElement<>(index, array[index]);
+					return new IndexElement<>(index, array);
 				}
 			};
 		}

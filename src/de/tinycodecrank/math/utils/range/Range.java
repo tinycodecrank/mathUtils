@@ -12,36 +12,46 @@ import de.tinycodecrank.math.utils.range.ListRange.ElementIndexListRange;
 
 public class Range implements Iterable<Integer>
 {
+	public static StringRange range(String str)
+	{
+		return StringRange.range(str);
+	}
+	
+	public static StringRange rRange(String str)
+	{
+		return StringRange.rRange(str);
+	}
+	
 	public static <T> ElementIndexArrayRange<T> range(T[] array)
 	{
 		return ArrayRange.range(array);
 	}
-
+	
 	public static <T> ElementIndexArrayRange<T> rRange(T[] array)
 	{
 		return ArrayRange.rRange(array);
 	}
-
+	
 	public static <T> ElementIndexListRange<T> range(List<T> list)
 	{
 		return ListRange.range(list);
 	}
-
+	
 	public static <T> ElementIndexListRange<T> rRange(List<T> list)
 	{
 		return ListRange.rRange(list);
 	}
-
+	
 	public static Range range(int stop)
 	{
 		return new Range(0, stop, 1);
 	}
-
+	
 	public static Range range(int start, int stop)
 	{
 		return new Range(start, stop, 1);
 	}
-
+	
 	/**
 	 * @param start
 	 * @param stop
@@ -52,31 +62,31 @@ public class Range implements Iterable<Integer>
 	{
 		return new Range(stop - 1, start - 1, -1);
 	}
-
+	
 	public static Range range(int start, int stop, int step)
 	{
 		return new Range(start, stop, step);
 	}
-
-	public final int start, stop, step;
-	private final int steps;
-	private final Supplier<Iterator<Integer>> iteratorSupplier;
-
+	
+	public final int							start, stop, step;
+	private final int							steps;
+	private final Supplier<Iterator<Integer>>	iteratorSupplier;
+	
 	private Range(int start, int stop, int step)
 	{
-		this.start = start;
-		this.stop = stop;
-		this.step = step;
+		this.start	= start;
+		this.stop	= stop;
+		this.step	= step;
 		validate();
-		this.steps = countSteps(start, stop, step);
-		this.iteratorSupplier = assignIterator();
+		this.steps				= countSteps(start, stop, step);
+		this.iteratorSupplier	= assignIterator();
 	}
-
+	
 	public Range reverse()
 	{
 		return new Range(this.stop - this.step, this.start - this.step, -this.step);
 	}
-
+	
 	/**
 	 * @return The amount of steps this range requires to traverse or -1 if it takes
 	 *         an infinite amount of steps.
@@ -85,7 +95,7 @@ public class Range implements Iterable<Integer>
 	{
 		return steps;
 	}
-
+	
 	private static int countSteps(int start, int stop, int step)
 	{
 		if (step == 0)
@@ -114,7 +124,7 @@ public class Range implements Iterable<Integer>
 			return (stop - start + adjustor) / step;
 		}
 	}
-
+	
 	private void validate()
 	{
 		if (start > stop)
@@ -132,41 +142,42 @@ public class Range implements Iterable<Integer>
 			}
 		}
 	}
-
+	
 	private Supplier<Iterator<Integer>> assignIterator()
 	{
 		if (this.step == 0)
 		{
 			return () -> new Iterator<Integer>()
 			{
-
+				
 				@Override
 				public boolean hasNext()
 				{
 					return true;
 				}
-
+				
 				@Override
 				public Integer next()
 				{
-					if (!hasNext()) throw new NoSuchElementException(
+					if (!hasNext())
+						throw new NoSuchElementException(
 							"What? An iterator with an infinite amount of content ran out of elements!");
 					return start;
 				}
-
+				
 			};
 		}
 		if (this.start == this.stop)
 		{
 			return () -> new Iterator<Integer>()
 			{
-
+				
 				@Override
 				public boolean hasNext()
 				{
 					return false;
 				}
-
+				
 				@Override
 				public Integer next()
 				{
@@ -179,22 +190,23 @@ public class Range implements Iterable<Integer>
 			return () -> new Iterator<Integer>()
 			{
 				private int next = start;
-
+				
 				@Override
 				public boolean hasNext()
 				{
 					return next < stop;
 				}
-
+				
 				@Override
 				public Integer next()
 				{
-					if (!hasNext()) throw new NoSuchElementException("This range contains no more elements!");
+					if (!hasNext())
+						throw new NoSuchElementException("This range contains no more elements!");
 					int current = next;
 					this.next += step;
 					return current;
 				}
-
+				
 			};
 		}
 		else
@@ -202,32 +214,33 @@ public class Range implements Iterable<Integer>
 			return () -> new Iterator<Integer>()
 			{
 				private int next = start;
-
+				
 				@Override
 				public boolean hasNext()
 				{
 					return next > stop;
 				}
-
+				
 				@Override
 				public Integer next()
 				{
-					if (!hasNext()) throw new NoSuchElementException("This range contains no more elements!");
+					if (!hasNext())
+						throw new NoSuchElementException("This range contains no more elements!");
 					int current = next;
 					this.next += step;
 					return current;
 				}
-
+				
 			};
 		}
 	}
-
+	
 	@Override
 	public Iterator<Integer> iterator()
 	{
 		return this.iteratorSupplier.get();
 	}
-
+	
 	public Stream<Integer> stream()
 	{
 		return StreamSupport.stream(spliterator(), false);
