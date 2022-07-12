@@ -4,6 +4,9 @@ import java.util.Iterator;
 import java.util.stream.Stream;
 import java.util.stream.StreamSupport;
 
+import de.tinycodecrank.math.utils.Max;
+import de.tinycodecrank.math.utils.Min;
+
 public final class ArrayRange
 {
 	private ArrayRange()
@@ -17,6 +20,16 @@ public final class ArrayRange
 	public static final <T> ElementIndexArrayRange<T> rRange(T[] array)
 	{
 		return new ElementIndexArrayRange<>(array, Range.rRange(0, array.length));
+	}
+	
+	public static final <T> ElementIndexArrayRange<T> range(int start, T[] array)
+	{
+		return new ElementIndexArrayRange<>(array, Range.range(Max.max(0, start), array.length));
+	}
+	
+	public static final <T> ElementIndexArrayRange<T> range(T[] array, int stop)
+	{
+		return new ElementIndexArrayRange<>(array, Range.range(0, Min.min(array.length, stop)));
 	}
 	
 	public static final class IndexArrayRange<T> implements IRange<Integer, IndexArrayRange<T>>

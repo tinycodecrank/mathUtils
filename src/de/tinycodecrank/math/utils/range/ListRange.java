@@ -5,6 +5,9 @@ import java.util.List;
 import java.util.stream.Stream;
 import java.util.stream.StreamSupport;
 
+import de.tinycodecrank.math.utils.Max;
+import de.tinycodecrank.math.utils.Min;
+
 public final class ListRange
 {
 	private ListRange()
@@ -18,6 +21,16 @@ public final class ListRange
 	public static final <T> ElementIndexListRange<T> rRange(List<T> list)
 	{
 		return new ElementIndexListRange<>(list, Range.rRange(0, list.size()));
+	}
+	
+	public static final <T> ElementIndexListRange<T> range(int start, List<T> list)
+	{
+		return new ElementIndexListRange<>(list, Range.range(Max.max(0, start)));
+	}
+	
+	public static final <T> ElementIndexListRange<T> range(List<T> list, int stop)
+	{
+		return new ElementIndexListRange<>(list, Range.range(Min.min(list.size(), stop)));
 	}
 	
 	public static final class IndexListRange<T> implements IRange<Integer, IndexListRange<T>>

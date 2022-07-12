@@ -32,9 +32,29 @@ public class Range implements Iterable<Integer>
 		return ArrayRange.rRange(array);
 	}
 	
+	public static <T> ElementIndexArrayRange<T> range(int start, T[] array)
+	{
+		return ArrayRange.range(start, array);
+	}
+	
+	public static <T> ElementIndexArrayRange<T> range(T[] array, int stop)
+	{
+		return ArrayRange.range(array, stop);
+	}
+	
 	public static <T> ElementIndexListRange<T> range(List<T> list)
 	{
 		return ListRange.range(list);
+	}
+	
+	public static <T> ElementIndexListRange<T> range(int start, List<T> list)
+	{
+		return ListRange.range(start, list);
+	}
+	
+	public static <T> ElementIndexListRange<T> range(List<T> list, int stop)
+	{
+		return ListRange.range(list, stop);
 	}
 	
 	public static <T> ElementIndexListRange<T> rRange(List<T> list)
