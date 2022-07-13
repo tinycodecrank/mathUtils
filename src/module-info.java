@@ -1,4 +1,4 @@
-module mathUtils
+module de.tinycodecrank.mathUtils
 {
 	exports de.tinycodecrank.math.utils;
 	exports de.tinycodecrank.math.utils.limit;
