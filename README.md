@@ -15,7 +15,7 @@ Max     | contains max functions for every primitive (see java.lang.Math#max)
 
 java version | library version | Download
 :----------: | :-------------: | :-------
-18+          | 1.0.0           | [math_utils-1.0.0.jar](https://github-registry-files.githubusercontent.com/524994046/43357580-1cc7-11ed-85d4-899d45c5e0ce?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAIWNJYAX4CSVEH53A%2F20220815%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20220815T162407Z&X-Amz-Expires=300&X-Amz-Signature=94ad15017b05e6303511a97d26b31c2a1632930da67f209e9e0cf943d9d71335&X-Amz-SignedHeaders=host&actor_id=0&key_id=0&repo_id=524994046&response-content-disposition=filename%3Dmath_utils-1.0.0.jar&response-content-type=application%2Foctet-stream)
+18+          | 1.0.0           | [**MathUtils.jar**](https://github.com/tinycodecrank/mathUtils/releases/download/v1.0.0/MathUtils.jar)
 
 ## Examples
 #### Range
