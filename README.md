@@ -1,4 +1,4 @@
-# mathUtils
+# mathUtils [![Maven Package](https://github.com/tinycodecrank/mathUtils/actions/workflows/maven-publish.yml/badge.svg)](https://github.com/tinycodecrank/mathUtils/actions/workflows/maven-publish.yml)
 
 ## Contents
 
